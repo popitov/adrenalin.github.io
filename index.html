@@ -171,7 +171,7 @@
     @media (max-width: 1200px){
       .menu-btn{ display:inline-flex; }
       .nav-links{
-        position: fixed; inset: var(--nav-h) 0 0 0; display:flex;
+        position: fixed; inset: var(--nav-h) 0 0 0; display:none;
         background: var(--panel); border-bottom:1px solid #1f2a44;
         padding:1rem; gap:.4rem; flex-wrap:nowrap; flex-direction:column; align-items:flex-start;
         overflow-y:auto;
@@ -180,9 +180,8 @@
         padding-bottom: calc(1rem + env(safe-area-inset-bottom));
         padding-left: calc(1rem + env(safe-area-inset-left));
       }
+      .nav-links.open{ display:flex; }
       .nav-links a{ padding:.8rem 1rem; width:100%; }
-      .js-enabled .nav-links{ display:none; }
-      .js-enabled .nav-links.open{ display:flex; }
     }
 
     @media (max-width: 640px){
@@ -425,7 +424,7 @@
       </div>
 
       <div class="nav-cta">
-        <button class="btn ghost menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">Меню</button>
+        <button class="btn ghost menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">☰</button>
         <button class="btn secondary" id="themeToggle" aria-label="Переключить тему" aria-pressed="false">Тема</button>
         <a class="btn" href="tel:+79001234567" aria-label="Позвонить в автошколу" title="+7 (900) 123-45-67">📞 <span class="phone-text">+7 (900) 123-45-67</span><span class="phone-short">45-67</span></a>
         <button class="btn" data-open-modal="enroll">Записаться</button>
@@ -969,7 +968,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    document.body.classList.add('js-enabled');
     // ---------- HELPERS ----------
     const $ = (q, root=document) => root.querySelector(q);
     const $$ = (q, root=document) => [...root.querySelectorAll(q)];
