@@ -325,7 +325,10 @@
       position: fixed; left:50%; transform: translateX(-50%);
       bottom: 16px; z-index: 130; display: none;
     }
-    @media (max-width: 980px){ .floating-cta{ display: inline-flex; } }
+    @media (max-width: 980px){
+      body{ padding-bottom:120px; }
+      .floating-cta{ display: inline-flex; }
+    }
 
     /* ---------- 3D tilt (hover) ---------- */
     .tilt{ transform-style: preserve-3d; transition: transform .15s ease, box-shadow .2s ease; will-change: transform; }
@@ -1286,9 +1289,11 @@
     // ---------- COOKIE ----------
     const cookie = $('#cookie');
     const cookieKey = 'cookie_adrenalin_ok';
-    if (!localStorage.getItem(cookieKey)) cookie.style.display = 'block';
-    $('#cookieOk').addEventListener('click', ()=> { localStorage.setItem(cookieKey, 'all'); cookie.style.display='none'; showToast('Спасибо!'); });
-    $('#cookieNo').addEventListener('click', ()=> { localStorage.setItem(cookieKey, 'necessary'); cookie.style.display='none'; showToast('Только необходимые cookie'); });
+    const floatCta = $('.floating-cta');
+    const updateCta = () => { floatCta.style.display = cookie.style.display === 'block' ? 'none' : ''; };
+    if (!localStorage.getItem(cookieKey)) { cookie.style.display = 'block'; updateCta(); }
+    $('#cookieOk').addEventListener('click', ()=> { localStorage.setItem(cookieKey, 'all'); cookie.style.display='none'; updateCta(); showToast('Спасибо!'); });
+    $('#cookieNo').addEventListener('click', ()=> { localStorage.setItem(cookieKey, 'necessary'); cookie.style.display='none'; updateCta(); showToast('Только необходимые cookie'); });
 
     // ---------- NAV active section highlight ----------
     const sections = ['about','courses','schedule','pricing','instructors','fleet','reviews','faq','contacts'].map(id => document.getElementById(id));
