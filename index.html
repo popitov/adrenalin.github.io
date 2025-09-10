@@ -114,6 +114,7 @@
       box-shadow: var(--shadow);
       transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
       will-change: transform;
+      white-space: nowrap; /* чтобы кнопки не ломались */
     }
     .btn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
     .btn.secondary{ background: linear-gradient(135deg, #1e293b, #0f172a); color:#e2e8f0; border:1px solid #273248; }
@@ -124,29 +125,51 @@
     /* focus-visible */
     :focus-visible{ outline: 3px solid #60a5fa; outline-offset: 2px; border-radius: 10px; }
 
-    /* ---------- NAVBAR ---------- */
+    /* ---------- NAVBAR (исправлено) ---------- */
     .nav{
       position: sticky; top:0; z-index:100; height:var(--nav-h);
       backdrop-filter: blur(8px);
       background: linear-gradient(180deg, rgba(13,19,38,.85), rgba(13,19,38,.65));
       border-bottom:1px solid #1f2a44;
     }
-    .nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding-block:.6rem; gap: .8rem; }
+    /* grid: logo | nav | cta */
+    .nav .wrap{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      padding-block:.6rem;
+      gap:.8rem;
+    }
     .brand{ display:flex; align-items:center; gap:.6rem; font-weight:900; letter-spacing:.3px; }
     .brand svg{ width:28px; height:28px; }
-    .nav-links{ display:flex; gap:.3rem; align-items:center; }
-    .nav-links a{ padding:.45rem .7rem; border-radius:999px; border:1px solid transparent; font-weight:600; color:#e2e8f0; }
+
+    .nav-links{
+      display:flex; align-items:center; justify-content:center; gap:.3rem;
+      min-width:0;               /* чтобы центр мог сжиматься, но без переноса ссылок */
+      white-space:nowrap;        /* запрет переноса ссылок на 2 строки */
+      overflow:hidden;           /* на всякий случай, если экран совсем узкий */
+    }
+    .nav-links a{
+      padding:.45rem .7rem; border-radius:999px; border:1px solid transparent;
+      font-weight:600; color:#e2e8f0; white-space:nowrap;
+    }
     .nav-links a:hover{ background:#111a33; border-color:#223355; }
     .nav-links a.active{ background:#142047; border-color:#2a3a66; }
+
     .nav-cta{ display:flex; gap:.6rem; align-items:center; }
+    .nav-cta > *{ flex-shrink:0; white-space:nowrap; } /* CTA не ломаем */
+
     .menu-btn{ display:none; }
 
-    @media (max-width: 980px){
+    /* раньше уводим в бургер-меню, чтобы никогда не ломалось */
+    @media (max-width: 1200px){
       .menu-btn{ display:inline-flex; }
       .nav-links{
         position: fixed; inset: var(--nav-h) 0 auto 0; display:none;
-        background: var(--panel); border-bottom:1px solid #1f2a44; padding:.8rem; gap:.4rem; flex-wrap: wrap;
+        background: var(--panel); border-bottom:1px solid #1f2a44;
+        padding:1rem; gap:.4rem; flex-wrap:nowrap; flex-direction:column; align-items:flex-start;
       }
+      .nav-links a{ padding:.8rem 1rem; width:100%; }
       .nav-links.open{ display:flex; }
     }
 
@@ -320,8 +343,6 @@
         <span class="tag">автошкола</span>
       </a>
 
-      <button class="btn ghost menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">Меню</button>
-
       <div class="nav-links" id="navLinks" role="navigation" aria-label="Основное меню">
         <a href="#about">О нас</a>
         <a href="#courses">Курсы</a>
@@ -335,6 +356,7 @@
       </div>
 
       <div class="nav-cta">
+        <button class="btn ghost menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">Меню</button>
         <button class="btn secondary" id="themeToggle" aria-label="Переключить тему" aria-pressed="false">Тема</button>
         <a class="btn" href="tel:+79001234567" aria-label="Позвонить в автошколу">📞 <span>+7 (900) 123-45-67</span></a>
         <button class="btn" data-open-modal="enroll">Записаться</button>
