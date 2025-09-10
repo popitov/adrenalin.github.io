@@ -329,6 +329,18 @@
     .tilt{ transform-style: preserve-3d; transition: transform .15s ease, box-shadow .2s ease; will-change: transform; }
     .tilt:hover{ box-shadow: 0 20px 40px rgba(0,0,0,.35); }
     
+    /* ---------- RESPONSIVE SCHEDULE TABLE ---------- */
+    @media (max-width: 600px){
+      .schedule-wrap{ overflow:visible !important; }
+      .schedule-table{ width:100%; }
+      .schedule-table thead{ display:none; }
+      .schedule-table tr{ display:block; margin-bottom:var(--space); border:1px solid #1f2a44; border-radius:var(--radius); padding:var(--space); background:var(--panel-2); }
+      .schedule-table td{ display:flex; justify-content:space-between; padding:.3rem 0; }
+      .schedule-table td::before{ content: attr(data-label); font-weight:600; margin-right:1rem; }
+      .schedule-table td:last-child{ justify-content:center; }
+      .schedule-table td:last-child::before{ content:''; margin:0; }
+    }
+
     /* ---------- noscript ---------- */
     noscript{ display:block; background:#7f1d1d; color:#fff; padding:.8rem; text-align:center; }
   </style>
@@ -573,8 +585,8 @@
           <button class="btn" id="downloadICS">Скачать .ics</button>
         </div>
 
-        <div style="overflow:auto; margin-top:.6rem;">
-          <table aria-label="Таблица расписания занятий">
+        <div class="schedule-wrap" style="overflow-x:auto; margin-top:.6rem;">
+          <table aria-label="Таблица расписания занятий" class="schedule-table">
             <thead><tr><th>Дата</th><th>Время</th><th>Филиал</th><th>Формат</th><th>Курс</th><th></th></tr></thead>
             <tbody id="scheduleBody"></tbody>
           </table>
@@ -1046,14 +1058,14 @@
       const rows = schedule
         .filter(x => (b==='all'||x.branch===b) && (f==='all'||x.format===f) && (!s || x.title.toLowerCase().includes(s)))
         .map(x => `<tr>
-          <td>${new Date(x.date).toLocaleDateString('ru-RU')}</td>
-          <td>${x.time}</td>
-          <td>${x.branch}</td>
-          <td>${x.format}</td>
-          <td>${x.title}</td>
-          <td><button class="btn" data-open-modal="enroll" data-course="${x.title}">Записаться</button></td>
+          <td data-label="Дата">${new Date(x.date).toLocaleDateString('ru-RU')}</td>
+          <td data-label="Время">${x.time}</td>
+          <td data-label="Филиал">${x.branch}</td>
+          <td data-label="Формат">${x.format}</td>
+          <td data-label="Курс">${x.title}</td>
+          <td data-label=""><button class="btn" data-open-modal="enroll" data-course="${x.title}">Записаться</button></td>
         </tr>`).join('');
-      $('#scheduleBody').innerHTML = rows || `<tr><td colspan="6"><i class="muted">Ничего не найдено</i></td></tr>`;
+      $('#scheduleBody').innerHTML = rows || `<tr><td data-label="—" colspan="6"><i class="muted">Ничего не найдено</i></td></tr>`;
     };
     fillSchedule();
     $('#branch').addEventListener('change', fillSchedule);
