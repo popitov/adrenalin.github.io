@@ -149,22 +149,21 @@
     .brand svg{ width:28px; height:28px; }
 
     .nav-links{
-      display:flex; align-items:center; justify-content:center; gap:.3rem;
-      min-width:0;               /* чтобы центр мог сжиматься, но без переноса ссылок */
-      white-space:nowrap;        /* запрет переноса ссылок на 2 строки */
-      overflow:hidden;           /* на всякий случай, если экран совсем узкий */
+      display:flex; align-items:center; min-width:0; gap:.3rem;
+      white-space:nowrap; overflow:hidden;
     }
-    .nav-links a{
+    .nav-main{ display:flex; gap:.3rem; margin:0 auto; }
+    .nav-main a{
       padding:.45rem .7rem; border-radius:999px; border:1px solid transparent;
       font-weight:600; color:#e2e8f0; white-space:nowrap;
     }
-    .nav-links a:hover{ background:#111a33; border-color:#223355; }
-    .nav-links a.active{ background:#142047; border-color:#2a3a66; }
+    .nav-main a:hover{ background:#111a33; border-color:#223355; }
+    .nav-main a.active{ background:#142047; border-color:#2a3a66; }
+    .nav-extra{ display:flex; gap:.6rem; align-items:center; }
+    .nav-extra > *{ flex-shrink:0; white-space:nowrap; }
+    .nav-extra a .phone-short{ display:none; }
 
     .nav-cta{ display:flex; gap:.6rem; align-items:center; }
-    .nav-cta > *{ flex-shrink:0; white-space:nowrap; } /* CTA не ломаем */
-    .nav-cta a .phone-short{ display:none; }
-
     .menu-btn{ display:none; }
 
     /* раньше уводим в бургер-меню, чтобы никогда не ломалось */
@@ -173,7 +172,7 @@
       .nav-links{
         position: fixed; inset: var(--nav-h) 0 0 0; display:none;
         background: var(--panel); border-bottom:1px solid #1f2a44;
-        padding:1rem; gap:.4rem; flex-wrap:nowrap; flex-direction:column; align-items:flex-start;
+        padding:1rem; gap:.4rem; flex-direction:column; align-items:flex-start;
         overflow-y:auto;
         padding-top: calc(1rem + env(safe-area-inset-top));
         padding-right: calc(1rem + env(safe-area-inset-right));
@@ -181,18 +180,20 @@
         padding-left: calc(1rem + env(safe-area-inset-left));
       }
       .nav-links.open{ display:flex; }
-      .nav-links a{ padding:.8rem 1rem; width:100%; }
+      .nav-main{ width:100%; flex-direction:column; }
+      .nav-main a{ padding:.8rem 1rem; width:100%; }
+      .nav-extra{ width:100%; flex-direction:column; margin-top:.4rem; }
+      .nav-extra > *{ width:100%; }
     }
 
     @media (max-width: 640px){
-      .nav-cta{ flex-wrap:wrap; gap:.4rem; }
-      .nav-cta a .phone-text{ display:none; }
-      .nav-cta a .phone-short{ display:inline; }
+      .nav-extra a .phone-text{ display:none; }
+      .nav-extra a .phone-short{ display:inline; }
       .btn,
-      .nav-links a,
-      .nav-cta > * { white-space: normal; }
+      .nav-main a,
+      .nav-extra > * { white-space: normal; }
       .btn{ font-size:.95rem; padding:.7rem .9rem; }
-      .nav-links a{ font-size:.95rem; padding:.6rem .8rem; }
+      .nav-main a{ font-size:.95rem; padding:.6rem .8rem; }
     }
 
     /* ---------- HERO ---------- */
@@ -412,22 +413,26 @@
       </a>
 
       <div class="nav-links" id="navLinks" role="navigation" aria-label="Основное меню">
-        <a href="#about">О нас</a>
-        <a href="#courses">Курсы</a>
-        <a href="#schedule">Расписание</a>
-        <a href="#pricing">Цены</a>
-        <a href="#instructors">Инструкторы</a>
-        <a href="#fleet">Автопарк</a>
-        <a href="#reviews">Отзывы</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contacts">Контакты</a>
+        <div class="nav-main">
+          <a href="#about">О нас</a>
+          <a href="#courses">Курсы</a>
+          <a href="#schedule">Расписание</a>
+          <a href="#pricing">Цены</a>
+          <a href="#instructors">Инструкторы</a>
+          <a href="#fleet">Автопарк</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacts">Контакты</a>
+        </div>
+        <div class="nav-extra">
+          <button class="btn secondary" id="themeToggle" aria-label="Переключить тему" aria-pressed="false">Тема</button>
+          <a class="btn" href="tel:+79001234567" aria-label="Позвонить в автошколу" title="+7 (900) 123-45-67">📞 <span class="phone-text">+7 (900) 123-45-67</span><span class="phone-short">45-67</span></a>
+          <button class="btn" data-open-modal="enroll">Записаться</button>
+        </div>
       </div>
 
       <div class="nav-cta">
         <button class="btn ghost menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">☰</button>
-        <button class="btn secondary" id="themeToggle" aria-label="Переключить тему" aria-pressed="false">Тема</button>
-        <a class="btn" href="tel:+79001234567" aria-label="Позвонить в автошколу" title="+7 (900) 123-45-67">📞 <span class="phone-text">+7 (900) 123-45-67</span><span class="phone-short">45-67</span></a>
-        <button class="btn" data-open-modal="enroll">Записаться</button>
       </div>
     </div>
   </nav>
