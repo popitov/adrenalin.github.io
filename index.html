@@ -64,13 +64,13 @@
       --space: clamp(12px, .9vw + 10px, 20px);
     }
     .light{
-      --bg:#f7f8fc;
+      --bg:#f8fafc;
       --bg-elev:#ffffff;
       --panel:#ffffff;
-      --panel-2:#f2f5ff;
+      --panel-2:#f1f5f9;
       --text:#0f172a;
       --muted:#475569;
-      --card:#ffffffdd;
+      --card:#ffffffee;
       --shadow: 0 10px 30px rgba(2,6,23,.08);
     }
 
@@ -107,13 +107,14 @@
     .section-header h2{ font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem); }
     .muted{ color:var(--muted); }
     .title{ font-size: clamp(2rem, 1.2rem + 3vw, 3rem); font-weight: 900; line-height:1.05; }
+    body, .card, .nav, .nav-main a{ transition: background-color .3s, color .3s, border-color .3s; }
     .btn{
       display:inline-flex; align-items:center; gap:.6rem;
       padding:.9rem 1.2rem; border-radius:999px; border:1px solid transparent;
       background: linear-gradient(135deg, var(--brand), #fb7185);
       color:#fff; font-weight:700; letter-spacing:.2px; cursor:pointer;
       box-shadow: var(--shadow);
-      transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
+      transition: background-color .3s, color .3s, border-color .3s, transform .15s ease, filter .2s ease, box-shadow .2s ease;
       will-change: transform;
       white-space: nowrap; /* чтобы кнопки не ломались */
     }
@@ -149,17 +150,16 @@
     .brand svg{ width:28px; height:28px; }
 
     .nav-links{
-      display:flex; align-items:center; min-width:0; gap:.3rem;
-      white-space:nowrap; overflow:hidden;
+      display:flex; align-items:center; gap:.6rem; flex:1;
     }
-    .nav-main{ display:flex; gap:.3rem; margin:0 auto; }
+    .nav-main{ display:flex; gap:.3rem; flex:1; justify-content:center; }
     .nav-main a{
       padding:.45rem .7rem; border-radius:999px; border:1px solid transparent;
       font-weight:600; color:#e2e8f0; white-space:nowrap;
     }
     .nav-main a:hover{ background:#111a33; border-color:#223355; }
     .nav-main a.active{ background:#142047; border-color:#2a3a66; }
-    .nav-extra{ display:flex; gap:.6rem; align-items:center; }
+    .nav-extra{ display:flex; gap:.6rem; align-items:center; margin-left:auto; }
     .nav-extra > *{ flex-shrink:0; white-space:nowrap; }
     .nav-extra a .phone-short{ display:none; }
 
@@ -280,14 +280,11 @@
     .avatar{ width:96px; height:96px; border-radius:50%; background: linear-gradient(145deg,#0b1226,#15224a); border:1px solid #22345c; display:grid; place-items:center; font-weight:900; }
 
     /* ---------- FLEET ---------- */
-    .fleet-wrap{ position:relative; }
-    .fleet{ display:grid; grid-auto-flow:column; gap:1rem; overflow-x:auto; padding-bottom:.4rem; scroll-snap-type:x mandatory; }
-    .fleet::-webkit-scrollbar{ height:8px; }
-    .fleet::-webkit-scrollbar-thumb{ background:#1e2b53; border-radius:8px; }
-    .fleet .car-card{ scroll-snap-align:start; min-width:260px; }
-
-    .arrow{ position:absolute; top:50%; transform:translateY(-50%); background:#0f172a; border:1px solid #1f2a44; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; width:44px; height:44px; }
-    .arrow.left{ left:-22px; } .arrow.right{ right:-22px; }
+    .fleet-wrap{ }
+    .fleet{ display:grid; gap:1rem; grid-template-columns: repeat(3,1fr); }
+    @media (max-width: 980px){ .fleet{ grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px){ .fleet{ grid-template-columns:1fr; } }
+    .fleet .car-card{ }
 
     /* ---------- REVIEWS ---------- */
     .reviews{ position:relative; overflow:hidden; }
@@ -425,7 +422,7 @@
           <a href="#contacts">Контакты</a>
         </div>
         <div class="nav-extra">
-          <button class="btn secondary" id="themeToggle" aria-label="Переключить тему" aria-pressed="false">Тема</button>
+          <button class="btn" id="themeToggle" aria-label="Переключить тему" aria-pressed="false">Тема</button>
           <a class="btn" href="tel:+79001234567" aria-label="Позвонить в автошколу" title="+7 (900) 123-45-67">📞 <span class="phone-text">+7 (900) 123-45-67</span><span class="phone-short">45-67</span></a>
           <button class="btn" data-open-modal="enroll">Записаться</button>
         </div>
@@ -773,7 +770,6 @@
       </div>
 
       <div class="fleet-wrap">
-        <button class="arrow left" aria-label="Влево" id="fleetLeft">←</button>
         <div class="fleet" id="fleetTrack">
           <div class="card car-card reveal tilt"><h3>Kia Rio (АКПП)</h3><p class="muted">Парктроники, камера</p></div>
           <div class="card car-card reveal tilt"><h3>Hyundai Solaris (МКПП)</h3><p class="muted">Отличная управляемость</p></div>
@@ -781,7 +777,6 @@
           <div class="card car-card reveal tilt"><h3>Skoda Rapid (МКПП)</h3><p class="muted">Экзаменационные маршруты</p></div>
           <div class="card car-card reveal tilt"><h3>Renault Logan (МКПП)</h3><p class="muted">Надёжная классика</p></div>
         </div>
-        <button class="arrow right" aria-label="Вправо" id="fleetRight">→</button>
       </div>
     </div>
   </section>
@@ -1341,11 +1336,6 @@
       $$('.dot', dotsWrap).forEach((d,i)=>d.classList.toggle('active', i===idx));
     };
     setInterval(()=> { idx = (idx+1)%slides; updateReviews(); }, 4500);
-
-    // ---------- FLEET SCROLLER ----------
-      const fleet = $('#fleetTrack');
-      $('#fleetLeft').addEventListener('click', ()=> fleet.scrollBy({left:-300, behavior:'smooth'}));
-      $('#fleetRight').addEventListener('click', ()=> fleet.scrollBy({left:300, behavior:'smooth'}));
 
     // ---------- BACK TO TOP ----------
     const toTop = $('#toTop');
