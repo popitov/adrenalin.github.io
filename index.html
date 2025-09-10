@@ -171,7 +171,7 @@
     @media (max-width: 1200px){
       .menu-btn{ display:inline-flex; }
       .nav-links{
-        position: fixed; inset: var(--nav-h) 0 0 0; display:none;
+        position: fixed; inset: var(--nav-h) 0 0 0; display:flex;
         background: var(--panel); border-bottom:1px solid #1f2a44;
         padding:1rem; gap:.4rem; flex-wrap:nowrap; flex-direction:column; align-items:flex-start;
         overflow-y:auto;
@@ -181,7 +181,8 @@
         padding-left: calc(1rem + env(safe-area-inset-left));
       }
       .nav-links a{ padding:.8rem 1rem; width:100%; }
-      .nav-links.open{ display:flex; }
+      .js-enabled .nav-links{ display:none; }
+      .js-enabled .nav-links.open{ display:flex; }
     }
 
     @media (max-width: 640px){
@@ -404,6 +405,20 @@
       </div>
     </div>
   </nav>
+
+  <noscript>
+    <div class="nav-links" role="navigation" aria-label="Основное меню без JavaScript">
+      <a href="#about">О нас</a>
+      <a href="#courses">Курсы</a>
+      <a href="#schedule">Расписание</a>
+      <a href="#pricing">Цены</a>
+      <a href="#instructors">Инструкторы</a>
+      <a href="#fleet">Автопарк</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+  </noscript>
 
   <!-- HERO -->
   <header class="hero" id="home">
@@ -927,6 +942,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
+    document.body.classList.add('js-enabled');
     // ---------- HELPERS ----------
     const $ = (q, root=document) => root.querySelector(q);
     const $$ = (q, root=document) => [...root.querySelectorAll(q)];
