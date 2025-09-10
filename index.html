@@ -84,6 +84,7 @@
       line-height:1.5;
       scroll-behavior:smooth;
     }
+    body.no-scroll{ overflow:hidden; }
 
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
@@ -166,9 +167,10 @@
     @media (max-width: 1200px){
       .menu-btn{ display:inline-flex; }
       .nav-links{
-        position: fixed; inset: var(--nav-h) 0 auto 0; display:none;
+        position: fixed; inset: var(--nav-h) 0 0 0; display:none;
         background: var(--panel); border-bottom:1px solid #1f2a44;
         padding:1rem; gap:.4rem; flex-wrap:nowrap; flex-direction:column; align-items:flex-start;
+        overflow-y:auto;
       }
       .nav-links a{ padding:.8rem 1rem; width:100%; }
       .nav-links.open{ display:flex; }
@@ -938,17 +940,20 @@
       const open = !navLinks.classList.contains('open');
       navLinks.classList.toggle('open', open);
       menuBtn.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('no-scroll', open);
       open && navLinks.querySelector('a')?.focus();
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         navLinks.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
       }
     });
     $$('#navLinks a').forEach(a => a.addEventListener('click', () => {
       navLinks.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
     }));
 
     // ---------- YEAR ----------
