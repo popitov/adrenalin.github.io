@@ -173,6 +173,11 @@
       .nav-links.open{ display:flex; }
     }
 
+    @media (max-width: 640px){
+      .nav-cta{ flex-wrap:wrap; gap:.4rem; }
+      .nav-cta a span{ display:none; }
+    }
+
     /* ---------- HERO ---------- */
     .hero{
       position:relative; padding: 80px 0 60px;
@@ -194,7 +199,7 @@
 
     .subtitle{ color:var(--muted); max-width: 60ch; }
     .hero-cta{ display:flex; gap:.8rem; flex-wrap:wrap; margin-top:.6rem; }
-    .stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:.8rem; margin-top:1rem; }
+    .stats{ display:grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap:.8rem; margin-top:1rem; }
     .stat{ background:#0f172a; border:1px solid #213255; padding:.9rem; border-radius:var(--radius); text-align:center; }
     .stat b{ font-size:1.4rem; display:block; }
 
@@ -687,7 +692,7 @@
 
       <div class="fleet-wrap">
         <button class="arrow left" aria-label="Влево" id="fleetLeft">←</button>
-        <div class="fleet" id="fleet">
+        <div class="fleet" id="fleetTrack">
           <div class="card car-card reveal tilt"><h3>Kia Rio (АКПП)</h3><p class="muted">Парктроники, камера</p></div>
           <div class="card car-card reveal tilt"><h3>Hyundai Solaris (МКПП)</h3><p class="muted">Отличная управляемость</p></div>
           <div class="card car-card reveal tilt"><h3>Volkswagen Polo (АКПП)</h3><p class="muted">Комфортный салон</p></div>
@@ -1253,9 +1258,9 @@
     setInterval(()=> { idx = (idx+1)%slides; updateReviews(); }, 4500);
 
     // ---------- FLEET SCROLLER ----------
-    const fleet = $('#fleet');
-    $('#fleetLeft').addEventListener('click', ()=> fleet.scrollBy({left:-300, behavior:'smooth'}));
-    $('#fleetRight').addEventListener('click', ()=> fleet.scrollBy({left:300, behavior:'smooth'}));
+      const fleet = $('#fleetTrack');
+      $('#fleetLeft').addEventListener('click', ()=> fleet.scrollBy({left:-300, behavior:'smooth'}));
+      $('#fleetRight').addEventListener('click', ()=> fleet.scrollBy({left:300, behavior:'smooth'}));
 
     // ---------- BACK TO TOP ----------
     const toTop = $('#toTop');
