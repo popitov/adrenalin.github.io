@@ -366,6 +366,33 @@
       .schedule-table td:last-child::before{ content:''; margin:0; }
     }
 
+    /* ---------- flex gap fallback ---------- */
+    @supports not (gap: 1rem){
+      .grid{ margin:-calc(var(--space)/2); }
+      .grid > *{ margin: calc(var(--space)/2); }
+
+      .brand > *:not(:last-child){ margin-right:.6rem; }
+
+      .nav-links > *:not(:last-child){ margin-right:.3rem; }
+      .nav-cta > *{ margin-right:.6rem; margin-bottom:.6rem; }
+      .nav-cta > *:last-child{ margin-right:0; }
+      .hero-cta > *{ margin-right:.8rem; margin-bottom:.8rem; }
+      .hero-cta > *:last-child{ margin-right:0; }
+      .filterbar > *{ margin-right:.5rem; margin-bottom:.5rem; }
+      .filterbar > *:last-child{ margin-right:0; }
+      .track > *:not(:last-child){ margin-right:1rem; }
+      .dots > *:not(:last-child){ margin-right:.4rem; }
+
+      @media (max-width: 1200px){
+        .nav-links > *{ margin-right:0; margin-bottom:.4rem; }
+        .nav-links > *:last-child{ margin-bottom:0; }
+      }
+
+      @media (max-width: 640px){
+        .nav-cta > *{ margin-right:.4rem; margin-bottom:.4rem; }
+      }
+    }
+
     /* ---------- noscript ---------- */
     noscript{ display:block; background:#7f1d1d; color:#fff; padding:.8rem; text-align:center; }
   </style>
