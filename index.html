@@ -268,7 +268,9 @@
     .badge{ background:#122142; border:1px solid #22345c; padding:.25rem .6rem; border-radius:999px; font-size:.8rem; color:#d6e2ff; }
 
     /* ---------- SCHEDULE ---------- */
-    .filterbar{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+    .filterbar{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:flex-end; }
+    .filterbar label{ display:flex; flex-direction:column; gap:.25rem; font-size:.85rem; color:var(--muted); }
+    .filterbar label span{ font-weight:600; }
     .select, .input{ background:var(--panel); border:1px solid #263155; color:var(--text); border-radius:10px; padding:.6rem .7rem; outline:none; }
     .input.error, .select.error { border-color: var(--bad); }
     table{ width:100%; border-collapse: collapse; overflow:hidden; border-radius: var(--radius); }
@@ -639,7 +641,8 @@
 
       <div class="card reveal tilt">
         <div class="filterbar">
-          <label aria-label="Филиал">
+          <label for="branch">
+            <span>Филиал</span>
             <select class="select" id="branch">
               <option value="all">Все филиалы</option>
               <option value="центр">Центр</option>
@@ -647,7 +650,8 @@
               <option value="юг">Юг</option>
             </select>
           </label>
-          <label aria-label="Формат">
+          <label for="format">
+            <span>Формат</span>
             <select class="select" id="format">
               <option value="all">Любой формат</option>
               <option value="онлайн">Онлайн теория</option>
@@ -655,7 +659,10 @@
               <option value="практика">Практика</option>
             </select>
           </label>
-          <input class="input" id="searchSchedule" placeholder="Поиск по названию курса..." aria-label="Поиск в расписании" />
+          <label for="searchSchedule">
+            <span>Поиск</span>
+            <input class="input" id="searchSchedule" placeholder="Поиск по названию курса..." aria-label="Поиск в расписании" />
+          </label>
           <button class="btn" id="downloadICS">Скачать .ics</button>
         </div>
 
