@@ -42,7 +42,12 @@
     body, h1, h2, h3, h4, p, figure, blockquote, ul, ol { margin: 0; }
     img, svg { display: block; max-width: 100%; }
     button { font: inherit; }
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: var(--brand-2);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
 
     /* ---------- THEME & TOKENS ---------- */
     :root{
@@ -125,6 +130,7 @@
       transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
       will-change: transform;
       white-space: nowrap; /* чтобы кнопки не ломались */
+      text-decoration: none;
     }
     .btn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
     .btn.secondary{ background: linear-gradient(135deg, #1e293b, #0f172a); color:#e2e8f0; border:1px solid #273248; }
@@ -170,12 +176,17 @@
     .nav-main a{
       padding:.45rem .7rem; border-radius:999px;
       font-weight:600; color:var(--text); white-space:nowrap;
+      text-decoration:none;
     }
     .nav-main a:hover{ background:var(--panel-2); }
     .nav-main a.active{ background:var(--panel); }
     .nav-main a:focus-visible{ outline:none; }
     .nav-extra{ display:flex; gap:.6rem; align-items:center; }
     .nav-extra > *{ flex-shrink:0; white-space:nowrap; }
+    .nav-extra a{
+      color:var(--text);
+      text-decoration:none;
+    }
 
     .nav-cta{ display:flex; gap:.6rem; align-items:center; }
     .menu-btn{ display:none; }
