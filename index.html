@@ -65,6 +65,10 @@
       --card:#0d1326cc;
       --accent-surface:#0f1a33;
       --accent-border:#243155;
+      --schedule-border:#1f2a44;
+      --schedule-header-bg:#0e162d;
+      --schedule-hover-bg:#0e152c;
+      --schedule-card-bg:var(--panel-2);
       --shadow: 0 10px 30px rgba(0,0,0,.3);
       --radius:16px;
       --nav-h:64px;
@@ -81,6 +85,10 @@
       --card:#dce0e8cc;
       --accent-surface:#e7ecfb;
       --accent-border:#c5d4f8;
+      --schedule-border-light:#c5d4f8;
+      --schedule-header-bg-light:#e7ecfb;
+      --schedule-hover-bg-light:#f3f6ff;
+      --schedule-card-bg-light:#f6f8ff;
       --shadow: 0 10px 30px rgba(76,79,105,.08);
     }
 
@@ -362,10 +370,17 @@
     .filterbar label span{ font-weight:600; }
     .select, .input{ background:var(--panel); border:1px solid #263155; color:var(--text); border-radius:10px; padding:.6rem .7rem; outline:none; }
     .input.error, .select.error { border-color: var(--bad); }
-    table{ width:100%; border-collapse: collapse; overflow:hidden; border-radius: var(--radius); }
-    th, td{ padding:.8rem .9rem; border-bottom:1px solid #1f2a44; text-align:left; }
-    thead{ background:#0e162d; }
-    tbody tr:hover{ background:#0e152c; }
+    .schedule-table{ width:100%; border-collapse: collapse; overflow:hidden; border-radius: var(--radius); border:1px solid var(--schedule-border); }
+    .schedule-table th,
+    .schedule-table td{ padding:.8rem .9rem; border-bottom:1px solid var(--schedule-border); text-align:left; }
+    .schedule-table thead{ background:var(--schedule-header-bg); }
+    .schedule-table thead th{ color:var(--text); }
+    .schedule-table tbody tr:hover{ background:var(--schedule-hover-bg); }
+    body.light .schedule-table thead{ background:var(--schedule-header-bg-light, var(--schedule-header-bg)); }
+    body.light .schedule-table tbody tr:hover{ background:var(--schedule-hover-bg-light, var(--schedule-hover-bg)); }
+    body.light .schedule-table{ border-color:var(--schedule-border-light, var(--schedule-border)); }
+    body.light .schedule-table th,
+    body.light .schedule-table td{ border-bottom-color:var(--schedule-border-light, var(--schedule-border)); }
 
     /* ---------- PRICING ---------- */
     .pricing{ grid-template-columns: repeat(3,1fr); }
@@ -520,7 +535,8 @@
       .schedule-wrap{ overflow:visible !important; }
       .schedule-table{ width:100%; }
       .schedule-table thead{ display:none; }
-      .schedule-table tr{ display:block; margin-bottom:var(--space); border:1px solid #1f2a44; border-radius:var(--radius); padding:var(--space); background:var(--panel-2); }
+      .schedule-table tr{ display:block; margin-bottom:var(--space); border:1px solid var(--schedule-border); border-radius:var(--radius); padding:var(--space); background:var(--schedule-card-bg); }
+      body.light .schedule-table tr{ border-color:var(--schedule-border-light, var(--schedule-border)); background:var(--schedule-card-bg-light, var(--schedule-card-bg)); }
       .schedule-table td{ display:flex; justify-content:space-between; padding:.3rem 0; }
       .schedule-table td::before{ content: attr(data-label); font-weight:600; margin-right:1rem; }
       .schedule-table td:last-child{ justify-content:center; }
