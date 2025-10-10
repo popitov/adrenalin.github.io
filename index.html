@@ -121,7 +121,7 @@
     .section-header h2{ font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem); }
     .muted{ color:var(--muted); }
     .title{ font-size: clamp(2rem, 1.2rem + 3vw, 3rem); font-weight: 900; line-height:1.05; }
-    .btn{
+    .btn{ 
       display:inline-flex; align-items:center; gap:.6rem;
       padding:.9rem 1.2rem; border-radius:999px; border:1px solid transparent;
       background: linear-gradient(135deg, var(--brand), #fb7185);
@@ -137,7 +137,20 @@
     .btn.ghost{ background: transparent; color:var(--text); border-color:#334155; }
     body.light .btn.ghost{ border-color:#cbd5e1; }
     .btn[disabled]{ opacity:.6; cursor:not-allowed; }
+    .link-btn{
+      background:none;
+      border:none;
+      padding:0;
+      color:var(--brand-2);
+      font-weight:600;
+      cursor:pointer;
+      text-decoration:underline;
+      text-decoration-thickness:2px;
+      text-underline-offset:3px;
+    }
+    .link-btn:hover{ text-decoration:none; }
     .tag{ display:inline-block; padding:.3rem .7rem; border-radius:999px; font-size:.85rem; background:#111827; color:#e5e7eb; border:1px solid #223; }
+    .consent-wrap{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
 
     /* focus-visible */
     :focus-visible{ outline: 3px solid #60a5fa; outline-offset: 2px; border-radius: 10px; }
@@ -1016,10 +1029,13 @@
           <option>Индивидуальные занятия</option>
         </select>
         <input class="input" name="instructor" placeholder="Предпочтительный инструктор (необязательно)" />
-        <label style="display:flex; gap:.5rem; align-items:center;">
-          <input type="checkbox" id="consent2" required />
-          <span class="muted" style="font-size:.95rem;">Согласен(на) на обработку персональных данных</span>
-        </label>
+        <div class="consent-wrap">
+          <label style="display:flex; gap:.5rem; align-items:center;">
+            <input type="checkbox" id="consent2" required />
+            <span class="muted" style="font-size:.95rem;">Согласен(на) на обработку персональных данных</span>
+          </label>
+          <button type="button" class="link-btn" data-open-modal="policy" data-return-focus="#consent2">Политика конфиденциальности</button>
+        </div>
         <button class="btn" type="submit">Отправить заявку</button>
       </form>
     </div>
@@ -1045,6 +1061,13 @@
         <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
         <input class="input" name="name" placeholder="Имя" required />
         <input class="input phone" name="phone" placeholder="Телефон" inputmode="tel" required />
+        <div class="consent-wrap">
+          <label style="display:flex; gap:.5rem; align-items:center;">
+            <input type="checkbox" id="consentCall" required />
+            <span class="muted" style="font-size:.95rem;">Согласен(на) на обработку персональных данных</span>
+          </label>
+          <button type="button" class="link-btn" data-open-modal="policy" data-return-focus="#consentCall">Политика конфиденциальности</button>
+        </div>
         <button class="btn" type="submit">Жду звонка</button>
       </form>
     </div>
@@ -1354,7 +1377,11 @@
       call: $('#modalCall'),
       policy: $('#modalPolicy'),
     };
-    let lastFocused = null;
+    const findModalName = (el) => {
+      if (!el) return null;
+      const entry = Object.entries(modals).find(([, modalEl]) => modalEl === el);
+      return entry ? entry[0] : null;
+    };
     const getFocusable = (root) => [...root.querySelectorAll('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled && el.offsetParent !== null);
     const trap = (e, modal) => {
       if (e.key !== 'Tab') return;
@@ -1364,9 +1391,15 @@
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     };
-    const openModal = (name) => {
+    const openModal = (name, { returnFocus } = {}) => {
       const m = modals[name];
-      lastFocused = document.activeElement;
+      const fallback = document.activeElement;
+      const focusTarget = returnFocus instanceof HTMLElement
+        ? returnFocus
+        : typeof returnFocus === 'string'
+          ? document.querySelector(returnFocus)
+          : null;
+      m._restoreFocus = focusTarget || fallback;
       m.style.display = 'flex';
       m.setAttribute('aria-hidden','false');
       const first = getFocusable(m)[0];
@@ -1376,14 +1409,26 @@
     };
     const closeModal = (name) => {
       const m = modals[name];
+      if (!m || m.getAttribute('aria-hidden') === 'true') return;
       m.style.display = 'none';
       m.setAttribute('aria-hidden','true');
-      document.removeEventListener('keydown', m._handler || (()=>{}));
-      lastFocused && lastFocused.focus();
+      if (m._handler) {
+        document.removeEventListener('keydown', m._handler);
+        m._handler = null;
+      }
+      const focusBack = m._restoreFocus;
+      m._restoreFocus = null;
+      if (focusBack && typeof focusBack.focus === 'function') {
+        focusBack.focus();
+      }
     };
     document.addEventListener('click', (e)=>{
       const openBtn = e.target.closest('[data-open-modal]');
       if (openBtn) {
+        e.preventDefault();
+        if (openBtn.tagName === 'BUTTON') {
+          e.stopPropagation();
+        }
         const name = openBtn.dataset.openModal;
         if (name === 'enroll') {
           const course = openBtn.dataset.course || '';
@@ -1403,13 +1448,16 @@
             </ul>
             <p style="margin-top:.5rem;">Оставьте заявку, и администратор пришлёт PDF с программой и договором.</p>`;
         }
-        openModal(name);
+        openModal(name, { returnFocus: openBtn.dataset.returnFocus });
       }
-      if (e.target.matches('[data-close-modal]')) {
-        Object.keys(modals).forEach(closeModal);
-      }
-      if (e.target.classList.contains('modal-backdrop')) {
-        Object.keys(modals).forEach(closeModal);
+      const closeBtn = e.target.matches('[data-close-modal]') ? e.target : null;
+      if (closeBtn) {
+        const backdrop = closeBtn.closest('.modal-backdrop');
+        const modalName = findModalName(backdrop);
+        if (modalName) closeModal(modalName);
+      } else if (e.target.classList.contains('modal-backdrop')) {
+        const modalName = findModalName(e.target);
+        if (modalName) closeModal(modalName);
       }
     });
     $('#openPolicy').addEventListener('click', (e)=>{ e.preventDefault(); openModal('policy'); });
