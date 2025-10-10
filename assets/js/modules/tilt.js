@@ -1,20 +1,4 @@
-import { $$ } from '../utils/dom.js';
-
-const addMediaQueryListener = (query, handler) => {
-  if (typeof query.addEventListener === 'function') {
-    query.addEventListener('change', handler);
-  } else if (typeof query.addListener === 'function') {
-    query.addListener(handler);
-  }
-};
-
-const removeMediaQueryListener = (query, handler) => {
-  if (typeof query.removeEventListener === 'function') {
-    query.removeEventListener('change', handler);
-  } else if (typeof query.removeListener === 'function') {
-    query.removeListener(handler);
-  }
-};
+import { $$, addMediaQueryListener, removeMediaQueryListener } from '../utils/dom.js';
 
 const tiltElement = (event, element) => {
   const rect = element.getBoundingClientRect();

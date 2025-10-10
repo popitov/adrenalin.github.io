@@ -1,4 +1,4 @@
-import { $ } from '../utils/dom.js';
+import { $, addMediaQueryListener } from '../utils/dom.js';
 
 export const initTheme = () => {
   const themeToggle = $('#themeToggle');
@@ -34,11 +34,13 @@ export const initTheme = () => {
     applyTheme(prefersLightMql.matches ? 'light' : 'dark');
   }
 
-  prefersLightMql.addEventListener('change', (event) => {
+  const handlePrefersLightChange = (event) => {
     if (!hasManualSelection) {
       applyTheme(event.matches ? 'light' : 'dark');
     }
-  });
+  };
+
+  addMediaQueryListener(prefersLightMql, handlePrefersLightChange);
 
   themeToggle.addEventListener('click', () => {
     const nextTheme = document.body.classList.contains('light') ? 'dark' : 'light';

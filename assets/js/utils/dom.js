@@ -13,3 +13,19 @@ export const showToast = (message) => {
     toast.style.display = 'none';
   }, 3500);
 };
+
+export const addMediaQueryListener = (mediaQueryList, handler) => {
+  if (typeof mediaQueryList.addEventListener === 'function') {
+    mediaQueryList.addEventListener('change', handler);
+  } else if (typeof mediaQueryList.addListener === 'function') {
+    mediaQueryList.addListener(handler);
+  }
+};
+
+export const removeMediaQueryListener = (mediaQueryList, handler) => {
+  if (typeof mediaQueryList.removeEventListener === 'function') {
+    mediaQueryList.removeEventListener('change', handler);
+  } else if (typeof mediaQueryList.removeListener === 'function') {
+    mediaQueryList.removeListener(handler);
+  }
+};

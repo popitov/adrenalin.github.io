@@ -1,4 +1,4 @@
-import { $, $$ } from '../utils/dom.js';
+import { $, $$, addMediaQueryListener } from '../utils/dom.js';
 
 const reviewsData = [
   { name: 'Анна', text: 'Отличная автошкола! Теория онлайн — удобно, инструктор спокойно и доходчиво объясняет. Сдала с первого раза 🙌' },
@@ -69,13 +69,15 @@ export const initReviews = () => {
 
   startReviewsAuto();
 
-  reducedMotionMedia.addEventListener('change', (event) => {
+  const handleReducedMotionChange = (event) => {
     if (event.matches) {
       stopReviewsAuto();
     } else {
       startReviewsAuto();
     }
-  });
+  };
+
+  addMediaQueryListener(reducedMotionMedia, handleReducedMotionChange);
 
   track.addEventListener('mouseenter', stopReviewsAuto);
   track.addEventListener('mouseleave', startReviewsAuto);
