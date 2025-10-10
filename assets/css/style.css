@@ -398,8 +398,9 @@
     /* ---------- FAQ ---------- */
     .faq-item{ border:1px solid var(--border-soft); border-radius:12px; overflow:hidden; background:var(--panel); }
     .faq-q{ display:flex; justify-content:space-between; align-items:center; padding:.9rem 1rem; cursor:pointer; }
-    .faq-a{ padding:0 1rem; height:0; overflow:hidden; transition: height .3s ease; }
-    .faq-item.open .faq-a{ padding: .6rem 1rem 1rem; }
+    .faq-a{ padding: .6rem 1rem 1rem; transition: height .3s ease; }
+    .faq-item.js-collapsible .faq-a{ padding:0 1rem; height:0; overflow:hidden; }
+    .faq-item.js-collapsible.open .faq-a{ padding: .6rem 1rem 1rem; }
 
     /* ---------- CONTACTS ---------- */
     .contacts{ display:grid; grid-template-columns: 1.1fr .9fr; gap: var(--space); }
