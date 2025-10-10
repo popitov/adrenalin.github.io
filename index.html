@@ -314,9 +314,10 @@
     @media (max-width:980px){ .fleet{ grid-template-columns:1fr; } }
 
     /* ---------- REVIEWS ---------- */
-    .reviews{ position:relative; overflow:hidden; }
+    .reviews{ position:relative; overflow:hidden; max-width: 760px; margin: 0 auto; }
     .track{ display:flex; gap:1rem; transition: transform .5s ease; }
-    .review{ min-width:100%; }
+    .review{ min-width:100%; display:flex; justify-content:center; }
+    .review-body{ width:100%; max-width: 540px; margin: 0 auto; padding: calc(var(--space) * 1.5) calc(var(--space) * 1.8); text-align:center; }
     .dots{ display:flex; justify-content:center; gap:.4rem; margin-top:.8rem; }
     .dot{ width:8px; height:8px; border-radius:50%; background:#334155; }
     .dot.active{ background: var(--brand); }
@@ -820,7 +821,7 @@
 
       <div class="card reviews reveal tilt">
         <div class="track" id="reviewTrack" style="will-change: transform;">
-          <article class="review"><h3>Анна</h3><p class="muted">Отличная автошкола! Теория онлайн — удобно, инструктор спокойно и доходчиво объясняет. Сдала с первого раза 🙌</p></article>
+          <article class="review"><div class="review-body"><h3>Анна</h3><p class="muted">Отличная автошкола! Теория онлайн — удобно, инструктор спокойно и доходчиво объясняет. Сдала с первого раза 🙌</p></div></article>
         </div>
         <div class="dots" id="reviewDots" aria-label="Навигация по отзывам"></div>
       </div>
@@ -1380,7 +1381,7 @@
     reviews.slice(1).forEach(r => {
       const art = document.createElement('article');
       art.className = 'review';
-      art.innerHTML = `<h3>${r.name}</h3><p class="muted">${r.text}</p>`;
+      art.innerHTML = `<div class="review-body"><h3>${r.name}</h3><p class="muted">${r.text}</p></div>`;
       track.appendChild(art);
     });
     let idx = 0;
