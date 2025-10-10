@@ -322,6 +322,11 @@
       background: radial-gradient(120% 80% at 100% 0%, rgba(255,77,79,.25), transparent), linear-gradient(180deg, #0e152c, #0b1120);
       box-shadow: var(--shadow);
     }
+    @supports not (aspect-ratio: 1){
+      .hero-art{
+        padding-bottom:75%;
+      }
+    }
     .light .hero-art{
       border-color: rgba(148,163,184,.6);
       background: radial-gradient(120% 80% at 100% 0%, rgba(255,77,79,.2), transparent), linear-gradient(180deg, #f8fafc, #e2e8f0);
