@@ -811,15 +811,15 @@
       </div>
       <div class="grid" style="grid-template-columns: 1fr;">
         <div class="faq-item reveal tilt">
-          <div class="faq-q"><b>Можно ли учиться полностью онлайн?</b><button class="x" aria-label="Открыть">+</button></div>
+          <div class="faq-q"><b>Можно ли учиться полностью онлайн?</b><button class="x" id="faqToggle1" aria-label="Открыть" aria-expanded="false">+</button></div>
           <div class="faq-a"><p class="muted">Теория — да. Практика обязательно очно, в вашем городе.</p></div>
         </div>
         <div class="faq-item reveal tilt">
-          <div class="faq-q"><b>Есть ли рассрочка?</b><button class="x" aria-label="Открыть">+</button></div>
+          <div class="faq-q"><b>Есть ли рассрочка?</b><button class="x" id="faqToggle2" aria-label="Открыть" aria-expanded="false">+</button></div>
           <div class="faq-a"><p class="muted">Да, без переплат. Оплата помесячно. Подробности — у администратора.</p></div>
         </div>
         <div class="faq-item reveal tilt">
-          <div class="faq-q"><b>Можно ли выбрать инструктора и АКПП/МКПП?</b><button class="x" aria-label="Открыть">+</button></div>
+          <div class="faq-q"><b>Можно ли выбрать инструктора и АКПП/МКПП?</b><button class="x" id="faqToggle3" aria-label="Открыть" aria-expanded="false">+</button></div>
           <div class="faq-a"><p class="muted">Конечно. Подбираем по характеру и задачам. АКПП/МКПП — на ваш выбор.</p></div>
         </div>
       </div>
@@ -1303,18 +1303,23 @@
     submitSim($('#callForm'), 'В ближайшее время перезвоним!');
 
     // ---------- FAQ ----------
-    $$('.faq-item').forEach(item=>{
+    $$('.faq-item').forEach((item, idx)=>{
       const q = $('.faq-q', item);
       const a = $('.faq-a', item);
-      q.addEventListener('click', ()=>{
-        item.classList.toggle('open');
-        if (item.classList.contains('open')) {
-          a.style.height = a.scrollHeight + 'px';
-          q.querySelector('.x').textContent = '−';
-        } else {
-          a.style.height = '0px';
-          q.querySelector('.x').textContent = '+';
-        }
+      const btn = $('.x', q);
+      if (!btn) return;
+      if (btn && !btn.id) btn.id = `faqToggle${idx + 1}`;
+      const setState = (open) => {
+        item.classList.toggle('open', open);
+        a.style.height = open ? `${a.scrollHeight}px` : '0px';
+        btn.textContent = open ? '−' : '+';
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Скрыть' : 'Открыть');
+      };
+      setState(item.classList.contains('open'));
+      q.addEventListener('click', (e)=>{
+        if (!e.target.closest('.faq-q')) return;
+        setState(!item.classList.contains('open'));
       });
     });
 
