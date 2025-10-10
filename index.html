@@ -285,6 +285,21 @@
     .glow{ position:absolute; width:120px; height:120px; border-radius:50%; background: radial-gradient(circle, rgba(255,77,79,.7), rgba(255,77,79,0)); filter: blur(10px); right:8%; bottom: 18%; animation: pulse 3s ease-in-out infinite; }
     @keyframes pulse{ 50%{ transform: scale(1.05); opacity:.8 } }
 
+    /* ---------- JOURNEY ---------- */
+    .journey-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .journey-step{ display:grid; grid-template-columns: auto 1fr; gap:.9rem; align-items:flex-start; }
+    .journey-icon{
+      width:56px; height:56px; border-radius:16px; display:grid; place-items:center;
+      font-size:1.8rem; background:#0f1a33; border:1px solid #243155; align-self:start;
+    }
+    body.light .journey-icon{ background:#e0e7ff; border-color:#cbd5f5; }
+    @media (max-width: 980px){ .journey-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px){
+      .journey-grid{ grid-template-columns: 1fr; }
+      .journey-step{ grid-template-columns: 1fr; }
+      .journey-icon{ margin-bottom:.2rem; }
+    }
+
     /* ---------- FEATURES / COURSES / PRICING / etc ---------- */
     .features{ grid-template-columns: repeat(4,1fr); }
     @media (max-width: 980px){ .features{ grid-template-columns: repeat(2,1fr); } }
@@ -498,6 +513,7 @@
       <div class="nav-links" id="navLinks" role="navigation" aria-label="Основное меню">
         <div class="nav-main">
           <a href="#about">О нас</a>
+          <a href="#journey">Как это работает</a>
           <a href="#courses">Курсы</a>
           <a href="#schedule">Расписание</a>
           <a href="#pricing">Цены</a>
@@ -522,6 +538,7 @@
   <noscript>
     <div class="nav-links" role="navigation" aria-label="Основное меню без JavaScript">
       <a href="#about">О нас</a>
+      <a href="#journey">Как это работает</a>
       <a href="#courses">Курсы</a>
       <a href="#schedule">Расписание</a>
       <a href="#pricing">Цены</a>
@@ -581,6 +598,46 @@
       </div>
     </div>
   </header>
+
+  <!-- JOURNEY -->
+  <section class="section" id="journey">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="reveal">Как это работает</h2>
+        <p class="muted reveal">От заявки до водительского удостоверения — всего четыре простых шага.</p>
+      </div>
+      <div class="grid journey-grid">
+        <div class="card journey-step reveal tilt" data-reveal-delay="1">
+          <div class="journey-icon" aria-hidden="true">📝</div>
+          <div>
+            <h3>Оставляете заявку</h3>
+            <p class="muted">Свяжитесь с нами удобным способом — поможем выбрать формат и старт обучения.</p>
+          </div>
+        </div>
+        <div class="card journey-step reveal tilt" data-reveal-delay="2">
+          <div class="journey-icon" aria-hidden="true">📚</div>
+          <div>
+            <h3>Проходите теорию</h3>
+            <p class="muted">Онлайн-платформа и занятия с преподавателем, тесты ГИБДД и разбор билетов.</p>
+          </div>
+        </div>
+        <div class="card journey-step reveal tilt" data-reveal-delay="3">
+          <div class="journey-icon" aria-hidden="true">🚘</div>
+          <div>
+            <h3>Практика и экзамен</h3>
+            <p class="muted">Отработка маршрутов, внутренний экзамен и сопровождение на сдаче в ГИБДД.</p>
+          </div>
+        </div>
+        <div class="card journey-step reveal tilt" data-reveal-delay="4">
+          <div class="journey-icon" aria-hidden="true">🎉</div>
+          <div>
+            <h3>Получаете права</h3>
+            <p class="muted">Поздравляем с водительским удостоверением и даём рекомендации по первым поездкам.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FEATURES -->
   <section class="section" id="about">
