@@ -6,6 +6,11 @@ export const initRevealAnimations = () => {
     return;
   }
 
+  if (!('IntersectionObserver' in window)) {
+    revealElements.forEach((element) => element.classList.add('show'));
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

@@ -46,6 +46,11 @@ export const initCountUp = () => {
     });
   };
 
+  if (!('IntersectionObserver' in window)) {
+    runCountUp();
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

@@ -9,9 +9,14 @@ export const initNavActive = () => {
     return;
   }
 
-  const linkById = Object.fromEntries(
-    $$('#navLinks a').map((link) => [link.getAttribute('href').slice(1), link]),
-  );
+  const navLinks = $$('#navLinks a');
+  const linkById = Object.fromEntries(navLinks.map((link) => [link.getAttribute('href').slice(1), link]));
+
+  if (!('IntersectionObserver' in window)) {
+    navLinks.forEach((link) => link.classList.remove('active'));
+    navLinks[0]?.classList.add('active');
+    return;
+  }
 
   const observer = new IntersectionObserver(
     (entries) => {
