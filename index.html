@@ -221,7 +221,7 @@
           <li>• Индивидуальные занятия</li>
           <li>• Настоящие отзывы, открытая статистика</li>
         </ul>
-        <div style="margin-top: .8rem; display:flex; gap:.6rem; flex-wrap:wrap;">
+        <div class="flex-gap-wrap">
           <span class="badge">Категория B</span>
           <span class="badge">Автомат / Механика</span>
           <span class="badge">Вечерние группы</span>
@@ -230,7 +230,7 @@
       <div class="card reveal tilt">
         <h3>Ближайший старт групп</h3>
         <p class="muted">Теория (онлайн): <b>понедельник</b>, <b>19:00</b> • Практика по записи.</p>
-        <div style="display:flex; gap:.6rem; margin-top:.8rem; flex-wrap:wrap;">
+        <div class="flex-gap-wrap">
           <button class="btn" data-open-modal="enroll">Записаться</button>
           <a class="btn secondary" href="#schedule">Смотреть расписание</a>
         </div>
@@ -247,17 +247,17 @@
       </div>
       <div class="grid courses">
         <article class="card course reveal tilt">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="flex-between">
             <h3 class="title">Категория B — базовый</h3>
             <span class="tag">популярно</span>
           </div>
           <p class="muted">Онлайн-теория + 20 ч. практики по городу. Подготовка к экзамену.</p>
-          <ul class="muted" style="margin:.5rem 0; display:grid; gap:.25rem;">
+          <ul class="muted list-compact">
             <li>• Теория 2 мес. (онлайн/офлайн)</li>
             <li>• 20 часов практики</li>
             <li>• Пробный экзамен</li>
           </ul>
-          <div style="display:flex; gap:.6rem; align-items:center; justify-content:space-between;">
+          <div class="flex-between-gap">
             <div><b style="font-size:1.4rem;">от 29 900 ₽</b><div class="muted" style="font-size:.9rem;">или 2 900 ₽ / мес</div></div>
             <div>
               <button class="btn" data-open-modal="enroll" data-course="Категория B — базовый">Записаться</button>
@@ -267,17 +267,17 @@
         </article>
 
         <article class="card course reveal tilt">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="flex-between">
             <h3 class="title">Экспресс-курс</h3>
             <span class="tag">быстро</span>
           </div>
           <p class="muted">Ускоренная теория, плотные практики. Для тех, кто спешит.</p>
-          <ul class="muted" style="margin:.5rem 0; display:grid; gap:.25rem;">
+          <ul class="muted list-compact">
             <li>• Теория 4–5 недель</li>
             <li>• 22 часа практики</li>
             <li>• Утренние/вечерние группы</li>
           </ul>
-          <div style="display:flex; gap:.6rem; align-items:center; justify-content:space-between;">
+          <div class="flex-between-gap">
             <div><b style="font-size:1.4rem;">от 34 900 ₽</b><div class="muted" style="font-size:.9rem;">или 3 400 ₽ / мес</div></div>
             <div>
               <button class="btn" data-open-modal="enroll" data-course="Экспресс-курс">Записаться</button>
@@ -287,17 +287,17 @@
         </article>
 
         <article class="card course reveal tilt">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="flex-between">
             <h3 class="title">Индивидуальные занятия</h3>
             <span class="tag">индивидуально</span>
           </div>
           <p class="muted">Под конкретные задачи: парковка, трасса, маршрут ГИБДД.</p>
-          <ul class="muted" style="margin:.5rem 0; display:grid; gap:.25rem;">
+          <ul class="muted list-compact">
             <li>• Механика/автомат</li>
             <li>• Подача к дому/офису</li>
             <li>• Маршруты экзамена</li>
           </ul>
-          <div style="display:flex; gap:.6rem; align-items:center; justify-content:space-between;">
+          <div class="flex-between-gap">
             <div><b style="font-size:1.4rem;">от 1 500 ₽/ч</b><div class="muted" style="font-size:.9rem;">пакеты — выгоднее</div></div>
             <div>
               <button class="btn" data-open-modal="enroll" data-course="Индивидуальные занятия">Записаться</button>
@@ -374,7 +374,7 @@
           <h3>Базовый B</h3>
           <div class="num" data-price data-once="29900" data-monthly="2900">29 900 ₽</div>
           <p class="muted">Онлайн/офлайн теория • 20 ч. практики • Пробный экзамен</p>
-          <div style="margin-top:.6rem; display:flex; gap:.6rem; justify-content:center;">
+          <div class="flex-center-gap">
             <button class="btn" data-open-modal="enroll" data-course="Базовый B">Записаться</button>
             <button class="btn ghost" id="downloadPrice">Скачать прайс</button>
           </div>
@@ -383,7 +383,7 @@
           <h3>Экспресс</h3>
           <div class="num" data-price data-once="34900" data-monthly="3400">34 900 ₽</div>
           <p class="muted">Ускоренная программа • 22 ч. практики • Городские маршруты</p>
-          <div style="margin-top:.6rem; display:flex; gap:.6rem; justify-content:center;">
+          <div class="flex-center-gap">
             <button class="btn" data-open-modal="enroll" data-course="Экспресс">Записаться</button>
             <button class="btn ghost" id="downloadContract">Договор (черновик)</button>
           </div>
@@ -392,7 +392,7 @@
           <h3>Индивидуально</h3>
           <div class="num" data-price data-once="1500" data-monthly="1500" data-billing="once" data-once-suffix=" ₽/ч">1 500 ₽/ч</div>
           <p class="muted">Парковка, трасса, экзамен • Автомат/механика • Гибкий график • Рассрочка не применяется</p>
-          <div style="margin-top:.6rem; display:flex; gap:.6rem; justify-content:center;">
+          <div class="flex-center-gap">
             <button class="btn" data-open-modal="enroll" data-course="Индивидуальные занятия">Записаться</button>
             <a class="btn secondary" href="#faq">Вопросы</a>
           </div>
@@ -416,7 +416,7 @@
             <h3>Андрей Миронов</h3>
             <div class="muted">14 лет стажа • МКПП/АКПП</div>
             <div aria-label="Рейтинг">⭐️⭐️⭐️⭐️⭐️</div>
-            <div style="margin-top:.5rem; display:flex; gap:.5rem;">
+            <div class="flex-gap-sm">
               <button class="btn" data-open-modal="enroll" data-instructor="Андрей Миронов">Записаться</button>
               <button class="btn ghost" data-open-modal="call" data-instructor="Андрей Миронов">Перезвоните</button>
             </div>
@@ -429,7 +429,7 @@
             <h3>Елена Котова</h3>
             <div class="muted">9 лет стажа • АКПП</div>
             <div aria-label="Рейтинг">⭐️⭐️⭐️⭐️⭐️</div>
-            <div style="margin-top:.5rem; display:flex; gap:.5rem;">
+            <div class="flex-gap-sm">
               <button class="btn" data-open-modal="enroll" data-instructor="Елена Котова">Записаться</button>
               <button class="btn ghost" data-open-modal="call" data-instructor="Елена Котова">Перезвоните</button>
             </div>
@@ -442,7 +442,7 @@
             <h3>Роман Сергеев</h3>
             <div class="muted">12 лет стажа • МКПП</div>
             <div aria-label="Рейтинг">⭐️⭐️⭐️⭐️</div>
-            <div style="margin-top:.5rem; display:flex; gap:.5rem;">
+            <div class="flex-gap-sm">
               <button class="btn" data-open-modal="enroll" data-instructor="Роман Сергеев">Записаться</button>
               <button class="btn ghost" data-open-modal="call" data-instructor="Роман Сергеев">Перезвоните</button>
             </div>
@@ -522,7 +522,7 @@
       <div class="contacts">
         <div class="card reveal tilt">
           <h3>Написать нам</h3>
-          <form id="contactForm" style="display:grid; gap:.6rem; margin-top:.6rem;" novalidate>
+          <form id="contactForm" class="form-grid" novalidate>
             <!-- honeypot -->
             <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
             <div class="form-field">
@@ -618,7 +618,7 @@
         <h3 id="enrollTitle">Заявка на обучение</h3>
         <button class="x" data-close-modal aria-label="Закрыть">×</button>
       </div>
-      <form id="enrollForm" style="display:grid; gap:.6rem; margin-top:.6rem;" novalidate>
+      <form id="enrollForm" class="form-grid" novalidate>
         <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
         <div class="form-field">
           <label class="form-label muted" for="enroll-name">Имя</label>
@@ -668,7 +668,7 @@
         <h3 id="callTitle">Перезвоните мне</h3>
         <button class="x" data-close-modal aria-label="Закрыть">×</button>
       </div>
-      <form id="callForm" style="display:grid; gap:.6rem; margin-top:.6rem;" novalidate>
+      <form id="callForm" class="form-grid" novalidate>
         <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
         <div class="form-field">
           <label class="form-label muted" for="call-name">Имя</label>

@@ -136,6 +136,15 @@
     .tag{ display:inline-block; padding:.3rem .7rem; border-radius:999px; font-size:.85rem; background:var(--accent-surface); color:#e5e7eb; border:1px solid var(--accent-border); }
     .consent-wrap{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
 
+    /* utility layouts extracted from inline styles */
+    .form-grid{ display:grid; gap:.6rem; margin-top:.6rem; }
+    .list-compact{ margin:.5rem 0; display:grid; gap:.25rem; }
+    .flex-between{ display:flex; justify-content:space-between; align-items:center; }
+    .flex-between-gap{ display:flex; gap:.6rem; align-items:center; justify-content:space-between; }
+    .flex-center-gap{ margin-top:.6rem; display:flex; gap:.6rem; justify-content:center; }
+    .flex-gap-wrap{ margin-top:.8rem; display:flex; gap:.6rem; flex-wrap:wrap; }
+    .flex-gap-sm{ margin-top:.5rem; display:flex; gap:.5rem; }
+
     /* focus-visible */
     :focus-visible{ outline: 3px solid #60a5fa; outline-offset: 2px; border-radius: 10px; }
 
