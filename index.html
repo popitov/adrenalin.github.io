@@ -1345,7 +1345,26 @@
       track.style.transform = `translateX(-${idx*100}%)`;
       $$('.dot', dotsWrap).forEach((d,i)=>d.classList.toggle('active', i===idx));
     };
-    setInterval(()=> { idx = (idx+1)%slides; updateReviews(); }, 4500);
+    const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reviewInterval = null;
+    const stopReviewsAuto = () => {
+      if (reviewInterval) {
+        clearInterval(reviewInterval);
+        reviewInterval = null;
+      }
+    };
+    const startReviewsAuto = () => {
+      if (reviewInterval || reducedMotionMedia.matches) return;
+      reviewInterval = setInterval(()=> { idx = (idx+1)%slides; updateReviews(); }, 4500);
+    };
+    startReviewsAuto();
+    reducedMotionMedia.addEventListener('change', (event)=> {
+      if (event.matches) {
+        stopReviewsAuto();
+      } else {
+        startReviewsAuto();
+      }
+    });
 
       // ---------- BACK TO TOP ----------
       const toTop = $('#toTop');
