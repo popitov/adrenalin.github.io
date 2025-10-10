@@ -1614,11 +1614,55 @@
       el.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
     };
     const tiltReset = (el) => { el.style.transform = ''; };
-    tiltables.forEach(el=>{
-      el.addEventListener('mousemove', (e)=> tilt(e, el));
-      el.addEventListener('mouseleave', ()=> tiltReset(el));
-      el.addEventListener('blur', ()=> tiltReset(el));
-    });
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const tiltHandlers = new WeakMap();
+    let tiltListenersActive = false;
+
+    const ensureHandlers = (el) => {
+      if (tiltHandlers.has(el)) return tiltHandlers.get(el);
+      const handlers = {
+        mousemove: (e) => tilt(e, el),
+        mouseleave: () => tiltReset(el),
+        blur: () => tiltReset(el),
+      };
+      tiltHandlers.set(el, handlers);
+      return handlers;
+    };
+
+    const addTiltListeners = () => {
+      if (tiltListenersActive) return;
+      tiltables.forEach((el) => {
+        const handlers = ensureHandlers(el);
+        el.addEventListener('mousemove', handlers.mousemove);
+        el.addEventListener('mouseleave', handlers.mouseleave);
+        el.addEventListener('blur', handlers.blur);
+      });
+      tiltListenersActive = true;
+    };
+
+    const removeTiltListeners = () => {
+      if (!tiltListenersActive) return;
+      tiltables.forEach((el) => {
+        const handlers = tiltHandlers.get(el);
+        if (!handlers) return;
+        el.removeEventListener('mousemove', handlers.mousemove);
+        el.removeEventListener('mouseleave', handlers.mouseleave);
+        el.removeEventListener('blur', handlers.blur);
+        tiltReset(el);
+      });
+      tiltListenersActive = false;
+    };
+
+    const applyReducedMotionPreference = (query) => {
+      if (query.matches) {
+        removeTiltListeners();
+      } else {
+        addTiltListeners();
+      }
+    };
+
+    applyReducedMotionPreference(reducedMotionQuery);
+    reducedMotionQuery.addEventListener('change', applyReducedMotionPreference);
 
     // ---------- ACCESSIBILITY: global Escape closes modals ----------
     document.addEventListener('keydown', (e)=>{
