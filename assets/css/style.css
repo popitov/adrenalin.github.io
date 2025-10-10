@@ -249,6 +249,25 @@
       .nav-extra > *{ width:100%; }
     }
 
+    @media (max-width: 768px){
+      .flex-between-gap{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:1rem;
+      }
+      .course .flex-between-gap > div:last-child{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:.6rem;
+        align-items:stretch;
+      }
+      .course .flex-between-gap > div:last-child .btn{
+        width:100%;
+        justify-content:center;
+      }
+    }
+
     @media (max-width: 640px){
       .btn,
       .nav-main a,
