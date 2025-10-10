@@ -1185,6 +1185,7 @@
 
     // ---------- THEME ----------
     const themeToggle = $('#themeToggle');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     const prefersLightMql = window.matchMedia('(prefers-color-scheme: light)');
     const storedTheme = localStorage.getItem('theme');
     let hasManualSelection = Boolean(storedTheme);
@@ -1196,6 +1197,9 @@
     const applyTheme = (name, { save = false } = {}) => {
       document.body.classList.toggle('light', name === 'light');
       themeToggle.setAttribute('aria-pressed', name === 'light' ? 'true' : 'false');
+      if (themeColorMeta) {
+        themeColorMeta.content = name === 'light' ? '#eff1f5' : '#0f172a';
+      }
       updateThemeBtn();
       if (save) {
         localStorage.setItem('theme', name);
