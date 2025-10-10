@@ -199,6 +199,11 @@
 
     .nav-cta{ display:flex; gap:.6rem; align-items:center; }
     .menu-btn{ display:none; }
+    .menu-btn.open{
+      background: var(--panel-2);
+      color: var(--brand-2);
+      border-color: rgba(255, 255, 255, .15);
+    }
 
     /* раньше уводим в бургер-меню, чтобы никогда не ломалось */
     @media (max-width: 1200px){
@@ -1112,11 +1117,17 @@
     // ---------- MENU ----------
     const menuBtn = $('#menuBtn');
     const navLinks = $('#navLinks');
+    const syncMenuButton = (isOpen) => {
+      menuBtn.textContent = isOpen ? '×' : '☰';
+      menuBtn.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Меню');
+      menuBtn.classList.toggle('open', isOpen);
+    };
     menuBtn.addEventListener('click', () => {
       const open = !navLinks.classList.contains('open');
       navLinks.classList.toggle('open', open);
       menuBtn.setAttribute('aria-expanded', String(open));
       document.body.classList.toggle('no-scroll', open);
+      syncMenuButton(open);
       open && navLinks.querySelector('a')?.focus();
     });
     document.addEventListener('keydown', (e) => {
@@ -1124,12 +1135,14 @@
         navLinks.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('no-scroll');
+        syncMenuButton(false);
       }
     });
     $$('#navLinks a').forEach(a => a.addEventListener('click', () => {
       navLinks.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('no-scroll');
+      syncMenuButton(false);
     }));
 
     // ---------- YEAR ----------
