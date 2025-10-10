@@ -182,6 +182,7 @@
     .nav-main a.active{ background:var(--panel); }
     .nav-main a:focus-visible{ outline:none; }
     .nav-extra{ display:flex; gap:.6rem; align-items:center; }
+    .nav-enroll{ padding:.7rem 1.1rem; font-size:.95rem; }
     .nav-extra > *{ flex-shrink:0; white-space:nowrap; }
     .nav-extra a{
       color:var(--text);
@@ -449,6 +450,7 @@
           <a href="#contacts">Контакты</a>
         </div>
         <div class="nav-extra">
+          <button class="btn nav-enroll" type="button" data-open-modal="enroll">Записаться</button>
           <button class="btn ghost" id="themeToggle" aria-label="Переключить тему" aria-pressed="false" title="Переключить тему">☀️</button>
         </div>
       </div>
