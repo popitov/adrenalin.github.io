@@ -228,7 +228,12 @@
     @media (max-width: 980px){ .hero .wrap{ grid-template-columns:1fr; } }
 
     .subtitle{ color:var(--muted); max-width: 60ch; }
-    .hero-cta{ display:flex; gap:.8rem; flex-wrap:wrap; margin-top:.6rem; }
+    .hero-cta{ display:flex; flex-direction:column; align-items:flex-start; gap:.7rem; margin-top:.6rem; }
+    .hero-cta__secondary{ display:flex; flex-wrap:wrap; gap:1rem; font-weight:600; }
+    .hero-cta__link{ color:var(--muted); display:inline-flex; align-items:center; gap:.35rem; padding:.2rem 0; transition: color .2s ease; }
+    .hero-cta__link:hover{ color:var(--text); }
+    body.light .hero-cta__link{ color:#475569; }
+    body.light .hero-cta__link:hover{ color:#0f172a; }
     .stats{ display:grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap:.8rem; margin-top:1rem; }
     .stat{ background:#0f172a; border:1px solid #213255; padding:.9rem; border-radius:var(--radius); text-align:center; }
     .stat b{ font-size:1.4rem; display:block; }
@@ -382,8 +387,7 @@
       .nav-links > *:not(:last-child){ margin-right:.3rem; }
       .nav-cta > *{ margin-right:.6rem; margin-bottom:.6rem; }
       .nav-cta > *:last-child{ margin-right:0; }
-      .hero-cta > *{ margin-right:.8rem; margin-bottom:.8rem; }
-      .hero-cta > *:last-child{ margin-right:0; }
+      .hero-cta__secondary{ gap:.8rem; }
       .filterbar > *{ margin-right:.5rem; margin-bottom:.5rem; }
       .filterbar > *:last-child{ margin-right:0; }
       .track > *:not(:last-child){ margin-right:1rem; }
@@ -462,9 +466,11 @@
         <h1 class="title reveal" data-reveal-delay="1">Автошкола «Адреналин» — уверенное вождение с первого занятия</h1>
         <p class="subtitle reveal" data-reveal-delay="2">Категория B, онлайн-теория, реальные городские маршруты. Рассрочка без переплат. Поддержка до сдачи экзамена.</p>
         <div class="hero-cta reveal" data-reveal-delay="3">
-          <button class="btn" data-open-modal="enroll">Записаться сейчас</button>
-          <button class="btn ghost" id="downloadBrochure">Скачать программу</button>
-          <a class="btn secondary" href="#pricing">Смотреть цены</a>
+          <button class="btn hero-cta__primary" data-open-modal="enroll">Записаться сейчас</button>
+          <div class="hero-cta__secondary">
+            <a class="hero-cta__link" href="#" id="downloadBrochure">Скачать программу</a>
+            <a class="hero-cta__link" href="#pricing">Смотреть цены</a>
+          </div>
         </div>
         <div class="stats reveal" data-reveal-delay="3">
           <div class="stat tilt"><b data-count="2500">0</b><span class="muted">выпускников</span></div>
@@ -1056,7 +1062,8 @@
     heroIO.observe($('#home'));
 
     // ---------- BROCHURE DOWNLOAD ----------
-    $('#downloadBrochure').addEventListener('click', () => {
+    $('#downloadBrochure').addEventListener('click', (e) => {
+      e.preventDefault();
       const txt = `Автошкола «Адреналин» — программа курса (пример)
 — Теория: 8 модулей (ПДД, знаки, разметка, безопасность, психология, первая помощь, устройство авто, экзамен).
 — Практика: 20 часов по городским маршрутам (старт/стоп, парковка, маневрирование, развороты, взаимодействие).
