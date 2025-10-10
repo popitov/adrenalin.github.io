@@ -434,12 +434,30 @@
     .review{ min-width:100%; display:flex; justify-content:center; }
     .review-body{ width:100%; max-width: 540px; margin: 0 auto; padding: calc(var(--space) * 1.5) calc(var(--space) * 1.8); text-align:center; }
     .dots{ display:flex; justify-content:center; gap:.4rem; margin-top:.8rem; }
-    .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent-border); }
-    .dot.active{ background: var(--brand); }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#9fb6ff;
+      border:1px solid rgba(255,255,255,.6);
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .dot.active{
+      background: var(--brand-2);
+      border-color: var(--brand-2);
+      transform: scale(1.1);
+    }
     body.light .tag{ background:var(--accent-surface); border-color:var(--accent-border); color:#1f2937; }
     body.light .feature .ico{ background:var(--accent-surface); border-color:var(--accent-border); color:#1f2937; }
     body.light .badge{ background:var(--accent-surface); border-color:var(--accent-border); color:#1e293b; }
-    body.light .dot{ background:var(--accent-border); }
+    body.light .dot{
+      background:#3f4f88;
+      border-color: rgba(15,23,42,.2);
+    }
+    body.light .dot.active{
+      background: var(--brand);
+      border-color: var(--brand);
+    }
 
     /* ---------- FAQ ---------- */
     .faq-item{ border:1px solid var(--border-soft); border-radius:12px; overflow:hidden; background:var(--panel); }
