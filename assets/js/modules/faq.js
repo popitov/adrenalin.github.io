@@ -13,9 +13,13 @@ export const initFaq = () => {
       toggle.id = `faqToggle${index + 1}`;
     }
 
+    item.classList.add('js-collapsible');
+
     const setState = (open) => {
       item.classList.toggle('open', open);
-      answer.style.height = open ? `${answer.scrollHeight}px` : '0px';
+      if (item.classList.contains('js-collapsible')) {
+        answer.style.height = open ? `${answer.scrollHeight}px` : '0px';
+      }
       toggle.textContent = open ? '−' : '+';
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Скрыть' : 'Открыть');
