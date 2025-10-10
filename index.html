@@ -176,12 +176,18 @@
     .nav-main a:focus-visible{ outline:none; }
     .nav-extra{ display:flex; gap:.6rem; align-items:center; }
     .nav-extra > *{ flex-shrink:0; white-space:nowrap; }
+    .nav-extra .nav-cta-btn{ display:none; }
 
     .nav-cta{ display:flex; gap:.6rem; align-items:center; }
+    .nav-cta .nav-cta-btn{ display:inline-flex; }
     .menu-btn{ display:none; }
 
     /* раньше уводим в бургер-меню, чтобы никогда не ломалось */
     @media (max-width: 1200px){
+      .nav-extra .nav-cta-btn{ display:flex; width:100%; }
+
+      .nav-cta{ gap:.4rem; }
+      .nav-cta .nav-cta-btn{ display:none; }
       .menu-btn{ display:inline-flex; }
       .nav-links{
         position: fixed; inset: var(--nav-h) 0 0 0; display:none;
@@ -431,11 +437,13 @@
           <a href="#contacts">Контакты</a>
         </div>
         <div class="nav-extra">
+          <a href="#enroll" class="btn nav-cta-btn" data-open-modal="enroll">Записаться</a>
           <button class="btn ghost" id="themeToggle" aria-label="Переключить тему" aria-pressed="false" title="Переключить тему">☀️</button>
         </div>
       </div>
 
       <div class="nav-cta">
+        <a href="#enroll" class="btn nav-cta-btn" data-open-modal="enroll">Записаться</a>
         <button class="btn ghost menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">☰</button>
       </div>
     </div>
