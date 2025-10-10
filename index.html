@@ -525,14 +525,26 @@
           <form id="contactForm" style="display:grid; gap:.6rem; margin-top:.6rem;" novalidate>
             <!-- honeypot -->
             <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
-            <input class="input" name="name" placeholder="Ваше имя" required />
-            <input class="input phone" name="phone" placeholder="Телефон" inputmode="tel" required />
-            <input class="input" name="email" placeholder="Email (необязательно)" inputmode="email" />
-            <textarea class="input" name="msg" placeholder="Сообщение" rows="4" required></textarea>
-            <label style="display:flex; gap:.5rem; align-items:center;">
-              <input type="checkbox" id="consent1" required />
-              <span class="muted" style="font-size:.95rem;">Согласен(на) на обработку персональных данных</span>
-            </label>
+            <div class="form-field">
+              <label class="form-label muted" for="contact-name">Ваше имя</label>
+              <input class="input" id="contact-name" name="name" placeholder="Ваше имя" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label muted" for="contact-phone">Телефон</label>
+              <input class="input phone" id="contact-phone" name="phone" placeholder="Телефон" inputmode="tel" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label muted" for="contact-email">Email (необязательно)</label>
+              <input class="input" id="contact-email" name="email" placeholder="Email (необязательно)" inputmode="email" />
+            </div>
+            <div class="form-field">
+              <label class="form-label muted" for="contact-message">Сообщение</label>
+              <textarea class="input" id="contact-message" name="msg" placeholder="Сообщение" rows="4" required></textarea>
+            </div>
+            <div class="form-checkbox">
+              <input type="checkbox" id="contact-consent" required />
+              <label class="muted" for="contact-consent">Согласен(на) на обработку персональных данных</label>
+            </div>
             <div style="display:flex; gap:.6rem; align-items:center; flex-wrap: wrap;">
               <button class="btn" type="submit">Отправить</button>
               <a class="btn secondary" href="mailto:hello@adrenalin-avto.ru">Написать на email</a>
@@ -608,20 +620,32 @@
       </div>
       <form id="enrollForm" style="display:grid; gap:.6rem; margin-top:.6rem;" novalidate>
         <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
-        <input class="input" name="name" placeholder="Имя" required />
-        <input class="input phone" name="phone" placeholder="Телефон" inputmode="tel" required />
-        <select class="select" name="course">
-          <option>Категория B — базовый</option>
-          <option>Экспресс-курс</option>
-          <option>Индивидуальные занятия</option>
-        </select>
-        <input class="input" name="instructor" placeholder="Предпочтительный инструктор (необязательно)" />
+        <div class="form-field">
+          <label class="form-label muted" for="enroll-name">Имя</label>
+          <input class="input" id="enroll-name" name="name" placeholder="Имя" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label muted" for="enroll-phone">Телефон</label>
+          <input class="input phone" id="enroll-phone" name="phone" placeholder="Телефон" inputmode="tel" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label muted" for="enroll-course">Курс</label>
+          <select class="select" id="enroll-course" name="course">
+            <option>Категория B — базовый</option>
+            <option>Экспресс-курс</option>
+            <option>Индивидуальные занятия</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label muted" for="enroll-instructor">Предпочтительный инструктор (необязательно)</label>
+          <input class="input" id="enroll-instructor" name="instructor" placeholder="Предпочтительный инструктор (необязательно)" />
+        </div>
         <div class="consent-wrap">
-          <label style="display:flex; gap:.5rem; align-items:center;">
-            <input type="checkbox" id="consent2" required />
-            <span class="muted" style="font-size:.95rem;">Согласен(на) на обработку персональных данных</span>
-          </label>
-          <button type="button" class="link-btn" data-open-modal="policy" data-return-focus="#consent2">Политика конфиденциальности</button>
+          <div class="form-checkbox">
+            <input type="checkbox" id="enroll-consent" required />
+            <label class="muted" for="enroll-consent">Согласен(на) на обработку персональных данных</label>
+          </div>
+          <button type="button" class="link-btn" data-open-modal="policy" data-return-focus="#enroll-consent">Политика конфиденциальности</button>
         </div>
         <button class="btn" type="submit">Отправить заявку</button>
       </form>
@@ -646,14 +670,20 @@
       </div>
       <form id="callForm" style="display:grid; gap:.6rem; margin-top:.6rem;" novalidate>
         <input type="text" name="company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
-        <input class="input" name="name" placeholder="Имя" required />
-        <input class="input phone" name="phone" placeholder="Телефон" inputmode="tel" required />
+        <div class="form-field">
+          <label class="form-label muted" for="call-name">Имя</label>
+          <input class="input" id="call-name" name="name" placeholder="Имя" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label muted" for="call-phone">Телефон</label>
+          <input class="input phone" id="call-phone" name="phone" placeholder="Телефон" inputmode="tel" required />
+        </div>
         <div class="consent-wrap">
-          <label style="display:flex; gap:.5rem; align-items:center;">
-            <input type="checkbox" id="consentCall" required />
-            <span class="muted" style="font-size:.95rem;">Согласен(на) на обработку персональных данных</span>
-          </label>
-          <button type="button" class="link-btn" data-open-modal="policy" data-return-focus="#consentCall">Политика конфиденциальности</button>
+          <div class="form-checkbox">
+            <input type="checkbox" id="call-consent" required />
+            <label class="muted" for="call-consent">Согласен(на) на обработку персональных данных</label>
+          </div>
+          <button type="button" class="link-btn" data-open-modal="policy" data-return-focus="#call-consent">Политика конфиденциальности</button>
         </div>
         <button class="btn" type="submit">Жду звонка</button>
       </form>
