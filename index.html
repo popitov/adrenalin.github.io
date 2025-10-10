@@ -138,6 +138,11 @@
     }
     .btn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
     .btn.secondary{ background: linear-gradient(135deg, #1e293b, #0f172a); color:#e2e8f0; border:1px solid #273248; }
+    body.light .btn.secondary{
+      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      color:#1f2937;
+      border:1px solid #cbd5e1;
+    }
     .btn.ghost{ background: transparent; color:var(--text); border-color:#334155; }
     body.light .btn.ghost{ border-color:#cbd5e1; }
     .btn[disabled]{ opacity:.6; cursor:not-allowed; }
@@ -378,6 +383,11 @@
     @media (max-width: 980px){ .instructors{ grid-template-columns:1fr; } }
     .person{ display:grid; grid-template-columns: 96px 1fr; gap:.8rem; align-items:center; }
     .avatar{ width:96px; height:96px; border-radius:50%; background: linear-gradient(145deg,#0b1226,#15224a); border:1px solid #22345c; display:grid; place-items:center; font-weight:900; }
+    body.light .avatar{
+      background: linear-gradient(145deg,#f4f6fb,#dce2f5);
+      border:1px solid #b7c4de;
+      color:#1e293b;
+    }
 
     /* ---------- FLEET ---------- */
     .fleet{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
@@ -503,7 +513,7 @@
     /* ---------- 3D tilt (hover) ---------- */
     .tilt{ transform-style: preserve-3d; transition: transform .15s ease, box-shadow .2s ease; will-change: transform; }
     .tilt:hover{ box-shadow: 0 20px 40px rgba(0,0,0,.35); }
-    body.light .tilt:hover{ box-shadow: 0 20px 40px rgba(15,23,42,.12); }
+    body.light .tilt:hover{ box-shadow: 0 20px 40px rgba(148,163,184,.18); }
     
     /* ---------- RESPONSIVE SCHEDULE TABLE ---------- */
     @media (max-width: 600px){
