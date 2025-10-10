@@ -69,13 +69,19 @@ export const initReviews = () => {
 
   startReviewsAuto();
 
-  reducedMotionMedia.addEventListener('change', (event) => {
+  const reducedMotionChangeHandler = (event) => {
     if (event.matches) {
       stopReviewsAuto();
     } else {
       startReviewsAuto();
     }
-  });
+  };
+
+  if (typeof reducedMotionMedia.addEventListener === 'function') {
+    reducedMotionMedia.addEventListener('change', reducedMotionChangeHandler);
+  } else if (typeof reducedMotionMedia.addListener === 'function') {
+    reducedMotionMedia.addListener(reducedMotionChangeHandler);
+  }
 
   track.addEventListener('mouseenter', stopReviewsAuto);
   track.addEventListener('mouseleave', startReviewsAuto);

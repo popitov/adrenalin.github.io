@@ -34,11 +34,17 @@ export const initTheme = () => {
     applyTheme(prefersLightMql.matches ? 'light' : 'dark');
   }
 
-  prefersLightMql.addEventListener('change', (event) => {
+  const prefersLightChangeHandler = (event) => {
     if (!hasManualSelection) {
       applyTheme(event.matches ? 'light' : 'dark');
     }
-  });
+  };
+
+  if (typeof prefersLightMql.addEventListener === 'function') {
+    prefersLightMql.addEventListener('change', prefersLightChangeHandler);
+  } else if (typeof prefersLightMql.addListener === 'function') {
+    prefersLightMql.addListener(prefersLightChangeHandler);
+  }
 
   themeToggle.addEventListener('click', () => {
     const nextTheme = document.body.classList.contains('light') ? 'dark' : 'light';

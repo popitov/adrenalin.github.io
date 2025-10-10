@@ -75,5 +75,14 @@ export const initTilt = () => {
   };
 
   applyReducedMotionPreference(reducedMotionQuery);
-  reducedMotionQuery.addEventListener('change', applyReducedMotionPreference);
+
+  const reducedMotionChangeHandler = (event) => {
+    applyReducedMotionPreference(event);
+  };
+
+  if (typeof reducedMotionQuery.addEventListener === 'function') {
+    reducedMotionQuery.addEventListener('change', reducedMotionChangeHandler);
+  } else if (typeof reducedMotionQuery.addListener === 'function') {
+    reducedMotionQuery.addListener(reducedMotionChangeHandler);
+  }
 };
