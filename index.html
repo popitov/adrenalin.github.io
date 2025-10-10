@@ -1075,19 +1075,38 @@
 
     // ---------- THEME ----------
     const themeToggle = $('#themeToggle');
+    const prefersLightMql = window.matchMedia('(prefers-color-scheme: light)');
+    const storedTheme = localStorage.getItem('theme');
+    let hasManualSelection = Boolean(storedTheme);
+
     const updateThemeBtn = () => {
       const isLight = document.body.classList.contains('light');
       themeToggle.textContent = isLight ? '🌙' : '☀️';
     };
-    const applyTheme = (name) => {
+    const applyTheme = (name, { save = false } = {}) => {
       document.body.classList.toggle('light', name === 'light');
       themeToggle.setAttribute('aria-pressed', name === 'light' ? 'true' : 'false');
       updateThemeBtn();
-      localStorage.setItem('theme', name);
+      if (save) {
+        localStorage.setItem('theme', name);
+      }
     };
-    applyTheme(localStorage.getItem('theme') || 'dark');
+
+    if (storedTheme) {
+      applyTheme(storedTheme);
+    } else {
+      applyTheme(prefersLightMql.matches ? 'light' : 'dark');
+    }
+
+    prefersLightMql.addEventListener('change', (event) => {
+      if (!hasManualSelection) {
+        applyTheme(event.matches ? 'light' : 'dark');
+      }
+    });
     themeToggle.addEventListener('click', () => {
-      applyTheme(document.body.classList.contains('light') ? 'dark' : 'light');
+      const nextTheme = document.body.classList.contains('light') ? 'dark' : 'light';
+      hasManualSelection = true;
+      applyTheme(nextTheme, { save: true });
     });
 
     // ---------- MENU ----------
