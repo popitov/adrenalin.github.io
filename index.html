@@ -705,8 +705,8 @@
         </div>
         <div class="card price reveal tilt">
           <h3>Индивидуально</h3>
-          <div class="num" data-price data-once="1500" data-monthly="1500">1 500 ₽/ч</div>
-          <p class="muted">Парковка, трасса, экзамен • Автомат/механика • Гибкий график</p>
+          <div class="num" data-price data-once="1500" data-monthly="1500" data-billing="once" data-once-suffix=" ₽/ч">1 500 ₽/ч</div>
+          <p class="muted">Парковка, трасса, экзамен • Автомат/механика • Гибкий график • Рассрочка не применяется</p>
           <div style="margin-top:.6rem; display:flex; gap:.6rem; justify-content:center;">
             <button class="btn" data-open-modal="enroll" data-course="Индивидуальные занятия">Записаться</button>
             <a class="btn secondary" href="#faq">Вопросы</a>
@@ -1105,17 +1105,24 @@
 
     // ---------- BILLING TOGGLE ----------
     const prices = $$('[data-price]');
+    const formatPrice = (value, suffix=' ₽') => {
+      const num = Number(value);
+      const formatted = Number.isFinite(num) ? num.toLocaleString('ru-RU') : value;
+      return formatted + suffix;
+    };
     $$('.toggle button').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         $$('.toggle button').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
         btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
         const mode = btn.dataset.bill;
         prices.forEach(p=>{
-          const once = +p.dataset.once;
-          const monthly = p.dataset.monthly;
-          p.textContent = mode === 'once'
-            ? once.toLocaleString('ru-RU') + ' ₽'
-            : monthly + ' ₽ / мес';
+          const onceSuffix = p.dataset.onceSuffix || ' ₽';
+          const monthlySuffix = p.dataset.monthlySuffix || ' ₽ / мес';
+          if (mode === 'monthly' && p.dataset.billing !== 'once') {
+            p.textContent = formatPrice(p.dataset.monthly, monthlySuffix);
+          } else {
+            p.textContent = formatPrice(p.dataset.once, onceSuffix);
+          }
         });
       });
     });
