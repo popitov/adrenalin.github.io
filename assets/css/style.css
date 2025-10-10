@@ -87,6 +87,7 @@
     /* ---------- GLOBAL UTILS ---------- */
     .container{ width:min(1200px, 92vw); margin-inline:auto; }
     .grid{ display:grid; gap: var(--space); }
+    .two-col{ grid-template-columns: 1.1fr .9fr; }
     .card{
       background:var(--card);
       border:1px solid var(--border-strong);
@@ -144,6 +145,10 @@
     .flex-center-gap{ margin-top:.6rem; display:flex; gap:.6rem; justify-content:center; }
     .flex-gap-wrap{ margin-top:.8rem; display:flex; gap:.6rem; flex-wrap:wrap; }
     .flex-gap-sm{ margin-top:.5rem; display:flex; gap:.5rem; }
+
+    @media (max-width: 768px){
+      .two-col{ grid-template-columns: 1fr; }
+    }
 
     /* focus-visible */
     :focus-visible{ outline: 3px solid #60a5fa; outline-offset: 2px; border-radius: 10px; }
