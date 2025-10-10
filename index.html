@@ -1160,7 +1160,14 @@
     };
     $('#downloadICS').addEventListener('click', () => {
       const rows = [...$('#scheduleBody').querySelectorAll('tr')];
-      let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Adrenalin//Schedule//RU\nCALSCALE:GREGORIAN\nX-WR-CALNAME:Adrenalin Schedule\nX-WR-TIMEZONE:Europe/Moscow\n';
+      const lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Adrenalin//Schedule//RU',
+        'CALSCALE:GREGORIAN',
+        'X-WR-CALNAME:Adrenalin Schedule',
+        'X-WR-TIMEZONE:Europe/Moscow'
+      ];
       rows.forEach((tr,i) => {
         const tds = tr.querySelectorAll('td');
         if (tds.length < 5) return;
@@ -1173,9 +1180,16 @@
         const endH = String(hh + 1).padStart(2,'0');
         const end = toICSDate(date, `${endH}:${String(mm).padStart(2,'0')}`);
         const uid = `adrenalin-${start}-${i}@example`;
-        ics += `BEGIN:VEVENT\nUID:${uid}\nDTSTART;TZID=Europe/Moscow:${start}\nDTEND;TZID=Europe/Moscow:${end}\nSUMMARY:${title}\nLOCATION:${branch}\nEND:VEVENT\n`;
+        lines.push('BEGIN:VEVENT');
+        lines.push(`UID:${uid}`);
+        lines.push(`DTSTART;TZID=Europe/Moscow:${start}`);
+        lines.push(`DTEND;TZID=Europe/Moscow:${end}`);
+        lines.push(`SUMMARY:${title}`);
+        lines.push(`LOCATION:${branch}`);
+        lines.push('END:VEVENT');
       });
-      ics += 'END:VCALENDAR';
+      lines.push('END:VCALENDAR');
+      const ics = `${lines.join('\r\n')}\r\n`;
       const blob = new Blob([ics], {type:'text/calendar'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
