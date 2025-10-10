@@ -340,8 +340,53 @@
     /* ---------- CONTACTS ---------- */
     .contacts{ display:grid; grid-template-columns: 1.1fr .9fr; gap: var(--space); }
     @media (max-width: 980px){ .contacts{ grid-template-columns:1fr; } }
-    .map{ background: linear-gradient(180deg,#0e152c,#0b1120); border:1px solid #1f2a44; border-radius: var(--radius); min-height:320px; display:grid; place-items:center; position:relative; }
-    .map .pin{ position:absolute; width:14px; height:14px; background:var(--brand); border-radius:50%; box-shadow: 0 0 0 6px rgba(255,77,79,.15); animation: ping 1.6s infinite; }
+    .map{
+      padding:0;
+      background:none;
+      border-radius: var(--radius);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      gap:0;
+    }
+    .map .map-media{
+      position:relative;
+      width:100%;
+      padding-top:56.25%;
+      overflow:hidden;
+    }
+    .map iframe,
+    .map img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+    .map .pin{
+      position:absolute;
+      width:14px;
+      height:14px;
+      background:var(--brand);
+      border-radius:50%;
+      box-shadow:0 0 0 6px rgba(255,77,79,.15);
+      animation: ping 1.6s infinite;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+    .map .map-info{
+      padding:calc(var(--space) * .9);
+      display:grid;
+      gap:.4rem;
+      text-align:center;
+      justify-items:center;
+      background:var(--card);
+      border-top:1px solid rgba(31,42,68,.6);
+    }
+    body.light .map .map-info{ border-top:1px solid rgba(148,163,184,.5); }
+    @media (max-width: 640px){
+      .map .map-media{ padding-top:70%; }
+    }
     @keyframes ping{ 0%{ transform: scale(.9); opacity:.8 } 70%{ transform: scale(1.4); opacity:.1 } 100%{ transform: scale(.9); opacity:.8 } }
 
     /* ---------- FOOTER ---------- */
@@ -892,12 +937,21 @@
           <p class="muted" style="margin-top:.5rem;">Нажимая «Отправить», вы соглашаетесь с <a href="#" id="openPolicy">политикой конфиденциальности</a>.</p>
         </div>
 
-        <div class="map card reveal tilt" role="img" aria-label="Карта расположения">
-          <div class="pin" style="left:55%; top:48%;"></div>
-          <div style="text-align:center;">
+        <div class="map card reveal tilt">
+          <div class="map-media">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?ll=37.620070%2C55.753630&z=15&mode=whatshere&whatshere%5Bpoint%5D=37.620070%2C55.753630&whatshere%5Bzoom%5D=17"
+              title="Карта расположения автошколы «Адреналин»"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+            <span class="pin" style="left:50%; top:50%;" aria-hidden="true"></span>
+          </div>
+          <div class="map-info">
             <h3>Мы здесь</h3>
-            <p class="muted">ул. Примерная, 7 • Ваш город</p>
-            <a class="btn" target="_blank" rel="noopener" href="https://yandex.ru/maps">Открыть в Яндекс.Картах</a>
+            <p class="muted">ул. Примерная, 7 · Ваш город</p>
+            <a class="btn" target="_blank" rel="noopener" href="https://yandex.ru/maps/?text=%D1%83%D0%BB.%20%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%BD%D0%B0%D1%8F%2C%207%2C%20%D0%92%D0%B0%D1%88%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4">Открыть в Яндекс.Картах</a>
           </div>
         </div>
       </div>
